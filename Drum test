@@ -1,0 +1,41 @@
+live_loop :Kick do
+  sync_bpm "/live_loop/Melo"
+  
+  8.times do
+    sample :bd_fat, rate: 0.5, amp: 1
+    
+    sleep 0.75
+  end
+end
+
+live_loop :snare do
+  stop
+  sync_bpm "/live_loop/Melo"
+  
+  1.times do
+    sample :sn_dolf, rate: 1.3, amp: 0.2
+    
+    sleep 4.25
+  end
+  
+  2.times do
+    sample :sn_dolf, rate: 1.5, amp: 0.2
+    
+    sleep 0.75
+  end
+  
+  
+end
+
+live_loop :charlet do
+  stop
+  sync_bpm "/live_loop/Melo"
+  
+  
+  
+  37.times do
+    sample :drum_cymbal_pedal, rate: 1.3, amp: 0.2
+    
+    sleep 0.5
+  end
+end
