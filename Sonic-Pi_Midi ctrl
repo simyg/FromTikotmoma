@@ -1,0 +1,91 @@
+live_loop :midi_piano do
+  use_real_time
+  with_fx :reverb , amp: 2 do
+    note, velocity = sync "/midi/midisport_4x4_port_b/1/1/note_on"
+    synth :piano , note: note, amp: velocity / 110.0
+  end
+  
+end
+
+live_loop :midisynth do
+  8.times do
+    
+    midi (octs :C3, 4).tick, sustain: 0.25, port: "midisport_4x4_port_a"
+    sleep 0.25
+  end
+  8.times do
+    
+    
+    
+    midi (octs :A3, 4).tick, sustain: 0.25, port: "midisport_4x4_port_a"
+    sleep 0.25
+  end
+  8.times do
+    
+    midi (octs :F2, 4).tick, sustain: 0.25, port: "midisport_4x4_port_a"
+    sleep 0.25
+  end
+end
+
+live_loop :Kick do
+  puts "slow drums"
+  2.times do
+    sample :bd_fat, rate: 0.5, amp: 1
+    
+    sleep 0.5
+  end
+  2.times do
+    sample :bd_fat, rate: 0.5, amp: 1
+    sleep 0.5
+    
+  end
+end
+
+
+live_loop :product do
+  
+  midi (octs :C2, 4).tick, sustain: 0.25, port: "sq-1_ctrl"
+  sleep 0.25
+end
+
+
+
+#live_loop :snare do
+# with_fx :reverb, mix: 0.6 do
+#  2.times do
+#   sample :sn_dub, amp: 0.3
+#  sleep 1
+#end
+#8.times do
+# sample :sn_dub, amp: 0.25, rate: 1.2
+#sleep 0.125
+#end
+#2.times do
+# sample :sn_dub, amp: 0.5
+# sleep 1
+#end
+#end
+
+#end
+
+
+
+
+
+live_loop :synthPad do
+  use_synth :hollow
+  with_fx :reverb, mix: 0.2 do
+    1.times do
+      play_chord chord(:C, :major), sustain: 1.75, amp: 1
+      sleep 2
+    end
+    1.times do
+      play_chord chord(:A, :minor7), sustain: 1.75 , amp: 1
+      sleep 2
+    end
+    1.times do
+      play_chord chord(:F4, :major7), sustain: 1.5 , amp: 1
+      sleep 2
+    end
+  end
+end
