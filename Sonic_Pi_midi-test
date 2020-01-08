@@ -1,0 +1,49 @@
+#chords = [(chord :C, :minor7), (chord :Ab, :major7), (chord :Eb, :major7), (chord :Bb, "7")].ring
+chords = [(chord :A, :major7), (chord :Gb, :minor7), (chord :D, :major7), (chord :E, "7")].ring
+c = chords[0] # prend le premier accord de l'anneau et stocke le dans une variable
+# ce c va être utilisé dans toutes les live_loops. Il sera modifié par la boucle :basse
+use_bpm 60
+live_loop :melodie do
+  #stop
+  
+  use_synth :blade
+  r = [0.25, 0.25, 0.5, 1].choose
+  #play c.choose, attack: 0, release: r
+  midi c.choose, attack: 0, release: r, pitch: 12, port: "hemisphere_suite"
+  sleep r
+end
+
+
+
+live_loop :basse do
+  #stop
+  #use_synth :fm
+  use_octave -3
+  #3.times do
+  #  play c[0] # joue la première note de l'accord
+  #  sleep 1
+  #end
+  #play c[2] # joue la troisième note de l'accord
+  #sleep 0.5
+  #play c[1] # # joue la seconde note de l'accord
+  #sleep 0.5
+  1.times do
+    midi c[0] , attack: 1, pitch: 24 ,port: "midisport_4x4_port_a"# joue la première note de l'accord
+    sleep 0.25
+  end
+  5.times do
+    midi c[0] , attack: 1, pitch: 12, port: "midisport_4x4_port_a"# joue la première note de l'accord
+    sleep 0.25
+  end
+  3.times do
+    midi c[4] , attack: 1, pitch: 12, port: "midisport_4x4_port_a"# joue la première note de l'accord
+    sleep 0.5
+  end
+  midi c[2], attack: 1, pitch: 12, port: "midisport_4x4_port_a"# joue la troisième note de l'accord
+  sleep 0.5
+  midi c[1] , attack: 1, pitch: 12, port: "midisport_4x4_port_a"# # joue la seconde note de l'accord
+  sleep 0.5
+  
+  
+  c = chords.tick
+end
